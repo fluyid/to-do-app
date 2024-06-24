@@ -6,7 +6,7 @@ while True:
     match user_action:
         case "add":
             todo = input("Enter a todo: ") + "\n"
-            file = open("todos.txt", "r")
+            file = open("files/subfiles/todos.txt", "r")
             # Now we need to create a list from the previous todos from the text file
             todos = file.readlines()
             file.close()
@@ -16,11 +16,11 @@ while True:
 
             # Now we open in write mode to overwrite the entire text file with the new list which is the old list +
             # the new list
-            file = open("todos.txt", "w")
+            file = open("files/subfiles/todos.txt", "w")
             file.writelines(todos)
             file.close()
         case "show" | "display":
-            file = open("todos.txt")
+            file = open("files/subfiles/todos.txt")
             todos = file.readlines()
             file.close()
 
