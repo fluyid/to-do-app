@@ -1,26 +1,39 @@
 
-todos = []
-completed_todos = []
-
 while True:
     user_action = input("Type add, show, edit, completed or exit: ")
     user_action = user_action.strip()
 
     match user_action:
         case "add":
-            todo = input("Enter a todo: ")
+            todo = input("Enter a todo: ") + "\n"
+            file = open("todos.txt", "r")
+            # Now we need to create a list from the previous todos from the text file
+            todos = file.readlines()
+            file.close()
+
+            # Here we append the to-do we wrote to the list that we created around 2 lines ago
             todos.append(todo)
+
+            # Now we open in write mode to overwrite the entire text file with the new list which is the old list +
+            # the new list
+            file = open("todos.txt", "w")
+            file.writelines(todos)
+            file.close()
         case "show" | "display":
+            file = open("todos.txt")
+            todos = file.readlines()
+            file.close()
+
             print(f"Todos left to complete - {len(todos)}")
             for index, item in enumerate(todos):
-                item = item.title()
+                item = item.title().strip()
                 index += 1
                 print(f"{index}-{item}")
-            print(f"Todos completed - {len(completed_todos)}")
-            for index, item in enumerate(completed_todos):
-                item = item.title()
-                index += 1
-                print(f"{index}-{item}")
+            # print(f"Todos completed - {len(completed_todos)}")
+            # for index, item in enumerate(completed_todos):
+            #     item = item.title()
+            #     index += 1
+            #     print(f"{index}-{item}")
         case "edit":
             number = int(input("Number of the todo to edit: "))
             number = number - 1
