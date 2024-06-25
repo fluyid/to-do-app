@@ -6,3 +6,7 @@ eat
 sleep
 rave
 repeat
+eat
+sleep
+rave
+repeat
