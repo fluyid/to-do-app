@@ -1,10 +1,6 @@
 eat
 sleep
-rave
-repeat
-eat
-sleep
-rave
+game
 repeat
 eat
 sleep

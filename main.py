@@ -4,25 +4,24 @@ while True:
     user_action = user_action.strip().lower()
 
     match user_action:
-        case "add":
+        case "add" | "a":
             todo = input("Enter a todo: ") + "\n"
-            file = open("files/subfiles/todos.txt", "r")
-            # Now we need to create a list from the previous todos from the text file
-            todos = file.readlines()
-            file.close()
+
+            with open("files/subfiles/todos.txt", "r") as file:
+                # Now we need to create a list from the previous todos from the text file
+                todos = file.readlines()
 
             # Here we append the to-do we wrote to the list that we created around 2 lines ago
             todos.append(todo)
 
             # Now we open in write mode to overwrite the entire text file with the new list which is the old list +
             # the new list
-            file = open("files/subfiles/todos.txt", "w")
-            file.writelines(todos)
-            file.close()
-        case "show" | "display":
-            file = open("files/subfiles/todos.txt")
-            todos = file.readlines()
-            file.close()
+            with open("files/subfiles/todos.txt", "w") as file:
+                file.writelines(todos)
+
+        case "show" | "display" | "s":
+            with open("files/subfiles/todos.txt", "r") as file:
+                todos = file.readlines()
 
             # new_todos = []
             #
@@ -42,16 +41,39 @@ while True:
             #     item = item.title()
             #     index += 1
             #     print(f"{index}-{item}")
-        case "edit":
+        case "edit" | "e":
             number = int(input("Number of the todo to edit: "))
             number = number - 1
+
+            with open("files/subfiles/todos.txt", "r") as file:
+                todos = file.readlines()
+            print("Here is existing todos", todos)
+
             new_todo = input("Enter new todo: ")
-            todos[number] = new_todo
-        case "completed":
+            todos[number] = new_todo + "\n"
+
+            print("Here is how it will be", todos)
+
+            with open("files/subfiles/todos.txt", "w") as file:
+                file.writelines(todos)
+
+        case "completed" | "c":
             completed = int(input("Enter the number of the completed todo: "))
             completed -= 1
-            completed_todos.append(todos.pop(completed))
-        case "exit":
+
+            with open("files/subfiles/todos.txt", "r") as file:
+                todos = file.readlines()
+
+            todo_to_remove = todos[completed].strip()
+            todos.pop(completed)
+
+            with open("files/subfiles/todos.txt", "w") as file:
+                file.writelines(todos)
+
+            message = f"Todo {todo_to_remove} was removed from the list"
+            print(message)
+
+        case "exit" | "x":
             break
         case _:
             print("Hey, you entered an unknown command :(")
