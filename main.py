@@ -1,3 +1,11 @@
+
+def get_todos():
+    with open("files/subfiles/todos.txt", "r") as file_local:
+        # Now we need to create a list from the previous todos from the text file
+        todos_local = file_local.readlines()
+    return todos_local
+
+
 while True:
     user_action = input("Type add, show, edit, completed or exit: ")
     user_action = user_action.strip().lower()
@@ -5,9 +13,7 @@ while True:
     if user_action.startswith("add"):
         todo = user_action[4:] + "\n"
 
-        with open("files/subfiles/todos.txt", "r") as file:
-            # Now we need to create a list from the previous todos from the text file
-            todos = file.readlines()
+        todos = get_todos()
 
         # Here we append the to-do we wrote to the list that we created around 2 lines ago
         todos.append(todo)
@@ -18,8 +24,7 @@ while True:
             file.writelines(todos)
 
     elif user_action.startswith("show"):
-        with open("files/subfiles/todos.txt", "r") as file:
-            todos = file.readlines()
+        todos = get_todos()
 
         # new_todos = []
         #
@@ -44,8 +49,7 @@ while True:
             number = int(user_action[5:])
             number = number - 1
 
-            with open("files/subfiles/todos.txt", "r") as file:
-                todos = file.readlines()
+            todos = get_todos()
             # print("Here is existing todos", todos)
 
             new_todo = input("Enter new todo: ")
@@ -64,8 +68,7 @@ while True:
             completed = int(user_action[10:])
             completed -= 1
 
-            with open("files/subfiles/todos.txt", "r") as file:
-                todos = file.readlines()
+            todos = get_todos()
 
             todo_to_remove = todos[completed].strip()
             todos.pop(completed)
