@@ -11,3 +11,10 @@ def write_todos(todos_arg, filepath="files/subfiles/todos.txt"):
     """ Write a to-do item list in the text file. """
     with open(filepath, "w") as file:
         file.writelines(todos_arg)
+
+
+if __name__ == "__main__":
+    # the current py file has the value of __main__ for __name__
+    # the current py file will have the value of functions for __name__ when opened in another py file
+    print("Hello")
+    print(get_todos())
